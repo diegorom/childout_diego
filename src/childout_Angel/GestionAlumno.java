@@ -49,6 +49,7 @@ public class GestionAlumno {
             System.out.print(sql);
             e.printStackTrace();
         }
+        
 
        return resultadoAlumno;
    }
