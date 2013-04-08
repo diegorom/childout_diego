@@ -17,8 +17,8 @@ import java.util.logging.Logger;
  * @author diego
  */
 public class GestionRelacion {
-    
-    boolean delete(int idRelaccion){
+    Relacion relacion = new Relacion(0, 0 ,0);
+    boolean delete(Relacion relacion){
         try {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
             } catch (Exception e) {
@@ -39,7 +39,7 @@ public class GestionRelacion {
             
         try {
             Statement stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(("DELETE * FROM relacion WHERE Id_relaccion=")+idRelaccion);
+            ResultSet rs = stmt.executeQuery(("DELETE  FROM relacion WHERE Id_relaccion=")+relacion.getIdRelaccion());
         } catch (SQLException ex) {
             Logger.getLogger(GestionRelacion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al consultar la base de datos");
@@ -69,7 +69,7 @@ public class GestionRelacion {
             
         try {
             Statement stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(("DELETE * FROM relacion WHERE Id_relaccion=")+idRelaccion);
+            ResultSet rs = stmt.executeQuery(("UPDATE  relacion SET id_autorizado="+relacion.getIdAlumno() +"WHERE Id_relaccion=")+relacion.getIdRelaccion());
         } catch (SQLException ex) {
             Logger.getLogger(GestionRelacion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al consultar la base de datos");
