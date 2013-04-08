@@ -78,7 +78,3 @@ public class GestionRelacion {
         return true;
     }   
 }
-/*
-        *boolean delete(Relacion relacion) - Diego
-        *boolean update(Relacion relacion) - Diego
-        */
