@@ -17,14 +17,14 @@ import java.util.ArrayList;
  */
 public class GestionAlumno {
 
-    ArrayList<String> grupos = new ArrayList();
-    Alumno alumno;
+    
+    
 
     private Alumno get(int id_alumno) {
-
+        Alumno alumno = null;
         try {
 
-            String sql = ("SELECT * FROM alumno where id_alumno =" + id_alumno);
+            String sql = "SELECT * FROM alumno where id_alumno =" + id_alumno;
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
@@ -41,14 +41,14 @@ public class GestionAlumno {
     }
 
     private ArrayList<String> findGrupos() {
+        ArrayList<String> grupos = new ArrayList();
         try {
-            String sql = ("Select grupo from alumno group by grupo");
+            String sql = "Select grupo from alumno group by grupo";
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                int id_alumno = rs.getInt("id_alumno");
-                String nombre = rs.getString("nombre");
                 String grupo = rs.getString("grupo");
+                grupos.add(grupo);
             }
         } catch (SQLException ex) {
             System.out.println("Error al consultar la base de datos");
@@ -60,15 +60,11 @@ public class GestionAlumno {
     private boolean delete(Alumno alumno) {
         
         try {
-            String sql = ("Delete * from alumno where id_alumno ="+ alumno.getId_alumno());
+            
             Statement stmt = Conexion.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                int id_alumno = rs.getInt("id_alumno");
-                String nombre = rs.getString("nombre");
-                String grupo = rs.getString("grupo");
-                return false;
-            }
+            String sql = "Delete * from alumno where id_alumno ="+ alumno.getId_alumno();
+            stmt.executeUpdate(sql);
+            
         } catch (SQLException ex) {
             System.out.println("Error al consultar la base de datos");
             ex.printStackTrace();
@@ -79,15 +75,11 @@ public class GestionAlumno {
 
     private boolean update(Alumno alumno) {
         try {
-            String sql = ("Update alumno set " + alumno.getId_alumno());
+            
             Statement stmt = Conexion.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                int id_alumno = rs.getInt("id_alumno");
-                String nombre = rs.getString("nombre");
-                String grupo = rs.getString("grupo");
-                return false;
-            }
+            String sql = "Update alumno set " + alumno.getId_alumno()+ alumno.getNombre()+ alumno.getGrupo();
+            stmt.executeUpdate(sql);
+
         } catch (SQLException ex) {
             System.out.println("Error al consultar la base de datos");
             ex.printStackTrace();
