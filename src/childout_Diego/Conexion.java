@@ -1,7 +1,6 @@
 
-package childout;
+package childout_Diego;
 
-import childout_Diego.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
