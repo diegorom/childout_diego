@@ -25,13 +25,9 @@ public class gestionAutorizado {
     try {
         String sql = "Delete from autorizado where id= "+autorizado.getId();
         Statement stmt = Conexion.conexion.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()) {
-            int id = rs.getInt(autorizado.getId());
-            return false;
-        }
-
-        } catch (SQLException ex) {
+        stmt.executeUpdate(sql);
+        
+    } catch (SQLException ex) {
             System.out.println("Autorizado no encontrado");
             ex.printStackTrace();
             return false;
@@ -60,13 +56,9 @@ public class gestionAutorizado {
        try {
         String sql = "Update autorizado set "+autorizado.getId();
         Statement stmt = Conexion.conexion.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()) {
-            int id = rs.getInt("id");
-            return false;
-        }
-
-        } catch (SQLException ex) {
+        stmt.executeUpdate(sql);
+        
+       } catch (SQLException ex) {
             System.out.println("Autorizado no encontrado");
             ex.printStackTrace();
             return false;
