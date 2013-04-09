@@ -4,6 +4,7 @@
  */
 package childout;
 
+import childout_Diego.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
