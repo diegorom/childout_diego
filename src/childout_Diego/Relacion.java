@@ -27,11 +27,19 @@ public class Relacion {
         this.IdAlumno = IdAlumno;
     }
 
-    public int getIdRelaccion() {
+    public int getIdAutorizado() {
         return IdAutorizado;
     }
 
+    public void setIdAutorizado(int IdAutorizado) {
+        this.IdAutorizado = IdAutorizado;
+    }
+
+    public int getIdRelaccion() {
+        return IdRelacion;
+    }
+
     public void setIdRelaccion(int IdRelaccion) {
-        this.IdAutorizado = IdRelaccion;
+        this.IdRelacion = IdRelaccion;
     }
 }
