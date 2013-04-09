@@ -4,7 +4,6 @@
  */
 package childout_jeronimo;
 
-import childout.Conexion;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,22 +14,45 @@ import java.util.ArrayList;
  * @author DAW
  */
 public class GestionRelacion {
- ArrayList<Integer> findByAutorizado(int id_autorizado) {
-        ArrayList<Integer> autorizados = new ArrayList();
+    
+    ArrayList<Alumno> findByAutorizado(int id_autorizado) {
+        ArrayList<Alumno> alumnos = new ArrayList();
         try { 
-            //esto no acabo de entenderlo, tengo que darle parametros a este metodo
-            //y cuales son
-            Statement sentenciaSQL = Conexion1.conectar();
-            ResultSet resultados = sentenciaSQL.executeQuery("SELECT * FROM autorizado WHERE id_autorizado = "+this.id_autorizado);
-
-            while (resultados.next()) {            
-                int id = resultados.getInt("id_autorizado");            
+            
+            Statement sentenciaSQL = Conexion.conexion.createStatement();
+            ResultSet resultados = sentenciaSQL.executeQuery("SELECT * FROM alumno NATURAL JOIN relacion WHERE Id_autorizado = "+ id_autorizado);
+            
+            while (resultados.next()) { 
+                Alumno alumno = new Alumno(resultados.getInt("Id_Alumno"), resultados.getString("nombre"), resultados.getString("grupo"));
+                alumnos.add(alumno);
+                
+                           
                         
             }
                 
         } catch (SQLException ex) {
             System.out.println("error");
         }
-        return autorizados;
+        return alumnos;
+    }
+    
+    
+    
+    
+ 
+    int insert(Relacion relacion) {
+        try { 
+            
+            Statement sentenciaSQL = Conexion.conexion.createStatement();
+            ResultSet resultados = sentenciaSQL.executeUpdate("INSERT relacion(Id_Alumno,Id_Autorizado) VALUES  ("+ Relacion.id_autorizado);
+            // otro problema es insertar una nueva relacion sobre una consulta de la
+            // que tengo un JOIN
+            
+                
+        } catch (SQLException ex) {
+            System.out.println("error");
+        }
+        return 0;
+        //executeUpdate
     }
 }
