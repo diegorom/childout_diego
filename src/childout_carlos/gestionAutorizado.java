@@ -55,7 +55,7 @@ public class gestionAutorizado {
     return autorizado;
     }
     
-    private boolean Update(Autorizado autorizado) {
+    private boolean Update (Autorizado autorizado) {
       
        try {
         String sql = "Update autorizado set "+autorizado.getId();
