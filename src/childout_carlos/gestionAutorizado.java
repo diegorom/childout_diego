@@ -18,27 +18,16 @@ import java.sql.ResultSet;
  * @author Susana
  */
 public class gestionAutorizado {
-    private String id;
+    
   
     
     private boolean delete (Autorizado autorizado) {
     try {
-        String sql = "Delete * From autorizado where"+id+"=id";
+        String sql = "Delete from autorizado where id= "+autorizado.getId();
         Statement stmt = Conexion.conexion.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()) {
-            int id = rs.getInt(id);
-            String nombre = rs.getString("nombre");
-            String correo = rs.getString("correo");
-            String telefono = rs.getString("telefono");
-            String dni =rs.getString("dni");
-            Blob firma = rs.getBlob("firma");
-            String parentesco = rs.getString("parentesco");
-            Blob huella = rs.getBlob ("huella");
-            return false;
-        }
-
-        } catch (SQLException ex) {
+        stmt.executeUpdate(sql);
+        
+    } catch (SQLException ex) {
             System.out.println("Autorizado no encontrado");
             ex.printStackTrace();
             return false;
@@ -47,49 +36,29 @@ public class gestionAutorizado {
      return true;
     }
   
-    private Autorizado get (int id){
+    private Autorizado get (Autorizado autorizado){
       
         try{
-            String sql = "Select * From autorizado where"+id+"id";
+            String sql = "Select id From autorizado where "+"id";
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            int id = rs.getInt(id);
-            String nombre = rs.getString("nombre");
-            String correo = rs.getString("correo");
-            String telefono = rs.getString("telefono");
-            String dni =rs.getString("dni");
-            Blob firma = rs.getBlob("firma");
-            String parentesco = rs.getString("parentesco");
-            Blob huella = rs.getBlob ("huella");
-            
-            Autorizado = new autorizado(int id, String nombre, String correo, String telefono, String dni, Blob foto, Blob firma, String parentesco, Blob huella);
+            int id = rs.getInt("id");
         }catch (SQLException ex) {
             System.out.println("Error al encontrar al autorizado");
             ex.printStackTrace();
         }   
-    return Autorizado;
+    return autorizado;
     }
     
-    private boolean Update(Autorizado autorizado) {
+    private boolean Update (Autorizado autorizado) {
       
        try {
-        String sql = "Update autorizado set"+id;
+        String sql = "Update autorizado set "+autorizado.getId();
         Statement stmt = Conexion.conexion.createStatement();
-        ResultSet rs = stmt.executeQuery(sql);
-        while(rs.next()) {
-            int id = rs.getInt(id);
-            String nombre = rs.getString("nombre");
-            String correo = rs.getString("correo");
-            String telefono = rs.getString("telefono");
-            String dni =rs.getString("dni");
-            Blob firma = rs.getBlob("firma");
-            String parentesco = rs.getString("parentesco");
-            Blob huella = rs.getBlob ("huella");
-            return false;
-        }
-
-        } catch (SQLException ex) {
+        stmt.executeUpdate(sql);
+        
+       } catch (SQLException ex) {
             System.out.println("Autorizado no encontrado");
             ex.printStackTrace();
             return false;
