@@ -19,13 +19,12 @@ import java.util.logging.Logger;
 
 public class GestionRelacion {
     
-    Relacion relacion = new Relacion(0, 0 ,0);
-    
+    Relacion relacion;
     boolean delete(Relacion relacion){
-            
+        this.relacion=relacion;
         try {
             Statement stmt = Conexion.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(("DELETE FROM relacion WHERE Id_relaccion=")+this.relacion.getIdRelaccion());
+            int rs = stmt.executeUpdate(("DELETE FROM relacion WHERE Id_relaccion=")+relacion.getIdRelaccion());
         } catch (SQLException ex) {
             Logger.getLogger(GestionRelacion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al consultar la base de datos");
@@ -35,9 +34,10 @@ public class GestionRelacion {
     }   
     
     boolean update(Relacion relacion){
+        this.relacion=relacion;
         try {
             Statement stmt = Conexion.conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(("UPDATE  relacion SET id_alumno="+this.relacion.getIdAlumno()+", id_autorizado="+this.relacion.getIdAutorizado()+"WHERE Id_relaccion=")+this.relacion.getIdRelaccion());
+            int rs = stmt.executeUpdate(("UPDATE  relacion SET id_alumno="+relacion.getIdAlumno()+", id_autorizado="+relacion.getIdAutorizado()+"WHERE Id_relaccion=")+relacion.getIdRelaccion());
         } catch (SQLException ex) {
             Logger.getLogger(GestionRelacion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al consultar la base de datos");
