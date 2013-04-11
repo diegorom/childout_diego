@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author DAW
  */
 public class GestionRelacion {
+    Relacion relacion;
     
     ArrayList<Alumno> findByAutorizado(int id_autorizado) {
         ArrayList<Alumno> alumnos = new ArrayList();
@@ -41,10 +42,11 @@ public class GestionRelacion {
     
  
     int insert(Relacion relacion) {
+        this.relacion=relacion;
         try { 
             
             Statement sentenciaSQL = Conexion.conexion.createStatement();
-            ResultSet resultados = sentenciaSQL.executeQuery("INSERT relacion(Id_Alumno,Id_Autorizado) VALUES  ("+ Relacion.IdAlumno +","+Relacion.IdAutorizado+")");
+            int resultados = sentenciaSQL.executeUpdate("INSERT relacion(Id_Alumno,Id_Autorizado) VALUES  ("+ relacion.getIdAlumno() +","+ relacion.getIdAutorizado() + ")");
             // otro problema es insertar una nueva relacion sobre una consulta de la
             // que tengo un JOIN
             
