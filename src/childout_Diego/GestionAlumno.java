@@ -4,7 +4,6 @@
  */
 package childout_Diego;
 
-import childout.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +18,7 @@ public class GestionAlumno {
 
     Statement stmt =null;
     ResultSet rsLista = null;
-    ArrayList<Alumno> resultadoAlumno = new ArrayList();
+
 
     public Alumno get(int id_alumno) {
         Alumno alumno = null;
@@ -90,7 +89,7 @@ public class GestionAlumno {
     }
     
     private ArrayList<Alumno> findByGrupo(String grupo){
-       
+       ArrayList<Alumno> resultadoAlumno = new ArrayList();
        Conexion.conectar("127.0.0.1","root","");
        
        String sql = "SELECT *"
