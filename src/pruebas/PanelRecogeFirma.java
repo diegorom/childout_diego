@@ -1,49 +1,101 @@
 package pruebas;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
-public class PanelFirma extends javax.swing.JPanel {
+public class PanelRecogeFirma extends javax.swing.JPanel {
 
     private ArrayList<TrazoManoAlzada> listaTrazos = new ArrayList();
     TrazoManoAlzada trazoActual;
     
-    public PanelFirma() {
+    public PanelRecogeFirma() {
         initComponents();
         this.setBackground(Color.WHITE);
+                
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        URL pathToImageCursor = getClass().getClassLoader().getResource("img/pencil.gif");
+        Image imageCursor = new ImageIcon(pathToImageCursor).getImage();
+        Point hotSpot = new Point(0,0);
+        Cursor cursor = toolkit.createCustomCursor(imageCursor, hotSpot, "Pencil");
+        this.setCursor(cursor);
     }
 
-    public void limpiar() {
+    protected void limpiar() {
         listaTrazos.clear();
         trazoActual = null;
         repaint();
     }
     
-    public int getMarginLeft() {
+    private Point getTopLeftCorner() {
         int marginLeft = 0;
         if(listaTrazos.size()>0) {
-            marginLeft = listaTrazos.get(0).getPointOrigen().x;
+            marginLeft = listaTrazos.get(0).getTopLeftCorner().x;
             for(TrazoManoAlzada t:listaTrazos) {
-                if(t.getPointOrigen().x < marginLeft) {
-                    marginLeft = t.getPointOrigen().x;
+                if(t.getTopLeftCorner().x < marginLeft) {
+                    marginLeft = t.getTopLeftCorner().x;
                 }
             }
         }    
-        return marginLeft;
-    }
-    
-    public int getMarginTop() {
         int marginTop = 0;
         if(listaTrazos.size()>0) {
-            marginTop = listaTrazos.get(0).getPointOrigen().y;
+            marginTop = listaTrazos.get(0).getTopLeftCorner().y;
             for(TrazoManoAlzada t:listaTrazos) {
-                if(t.getPointOrigen().y < marginTop) {
-                    marginTop = t.getPointOrigen().y;
+                if(t.getTopLeftCorner().y < marginTop) {
+                    marginTop = t.getTopLeftCorner().y;
                 }
             }
-        }       
-        return marginTop;
+        }           
+        return new Point(marginLeft, marginTop);
+    }    
+    
+    private Point getBottomRightCorner() {
+        int maxRight = 0;
+        if(listaTrazos.size()>0) {
+            maxRight = listaTrazos.get(0).getBottomRightCorner().x;
+            for(TrazoManoAlzada t:listaTrazos) {
+                if(t.getBottomRightCorner().x > maxRight) {
+                    maxRight = t.getBottomRightCorner().x;
+                }
+            }
+        }    
+        int maxBottom = 0;
+        if(listaTrazos.size()>0) {
+            maxBottom = listaTrazos.get(0).getBottomRightCorner().y;
+            for(TrazoManoAlzada t:listaTrazos) {
+                if(t.getBottomRightCorner().y > maxBottom) {
+                    maxBottom = t.getBottomRightCorner().y;
+                }
+            }
+        }           
+        return new Point(maxRight, maxBottom);
+    }  
+    
+    /**
+     * 
+     * @return Dimensión de la firma
+     */
+    protected Dimension moverFirmaOrigen() {
+        Point topLeftCorner = getTopLeftCorner();
+        int incX = 0 - topLeftCorner.x;
+        int incY = 0 - topLeftCorner.y;
+        if(listaTrazos.size()>0) {
+            for(int i=0; i<listaTrazos.size(); i++) {
+                TrazoManoAlzada t = listaTrazos.get(i);
+                t.mover(incX, incY);
+                listaTrazos.set(i, t);
+            }
+        }
+        Point bottomRightCorner = getBottomRightCorner();
+        Dimension dim = new Dimension(bottomRightCorner.x+1, bottomRightCorner.y+1);
+        return dim;
     }
     
     @Override

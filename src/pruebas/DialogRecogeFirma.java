@@ -1,54 +1,41 @@
 package pruebas;
 
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
+import java.awt.GraphicsEnvironment;
+import java.sql.Blob;
 
 public class DialogRecogeFirma extends javax.swing.JDialog {
 
+    private Blob firma = null;
+
+    public Blob getFirma() {
+        return firma;
+    }        
+    
     public DialogRecogeFirma(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
         jToolBar1.setFloatable(false);
         setTitle("Recoger firma");
         maximize();
+        
+        firma = null;
     }
 
-    public void maximize() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        double width = screenSize.getWidth();
-        double height = screenSize.getHeight();
-        this.setSize((int)width, (int)height);
-    }
-    
-private void makePanelImage(Component panel)
-    {
-        Dimension size = panel.getSize();
-        BufferedImage image = new BufferedImage(
-                    size.width, size.height 
-                              , BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = image.createGraphics();
-        panel.paint(g2);
-        try
-        {
-            ImageIO.write(image, "png", new File("snapshot.png"));
-            System.out.println("Panel saved as Image.");
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+    private void maximize() {
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        double width = screenSize.getWidth();
+//        double height = screenSize.getHeight();
+//        this.setSize((int) width, (int) height);
+        this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds()); 
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelFirma1 = new pruebas.PanelFirma();
+        panelFirma1 = new pruebas.PanelRecogeFirma();
         jToolBar1 = new javax.swing.JToolBar();
         jButtonAceptar = new javax.swing.JButton();
         jButtonLimpiar = new javax.swing.JButton();
@@ -64,7 +51,7 @@ private void makePanelImage(Component panel)
         );
         panelFirma1Layout.setVerticalGroup(
             panelFirma1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 230, Short.MAX_VALUE)
+            .addGap(0, 289, Short.MAX_VALUE)
         );
 
         jToolBar1.setRollover(true);
@@ -106,14 +93,14 @@ private void makePanelImage(Component panel)
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
             .addComponent(panelFirma1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(panelFirma1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -129,7 +116,11 @@ private void makePanelImage(Component panel)
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        makePanelImage(panelFirma1);
+        Dimension tamFirma = panelFirma1.moverFirmaOrigen();
+        this.setVisible(false);
+        panelFirma1.repaint();
+        panelFirma1.setSize(tamFirma);
+        firma = UtilBlob.JPanelToBlob(panelFirma1);
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     /**
@@ -178,6 +169,6 @@ private void makePanelImage(Component panel)
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JToolBar jToolBar1;
-    private pruebas.PanelFirma panelFirma1;
+    private pruebas.PanelRecogeFirma panelFirma1;
     // End of variables declaration//GEN-END:variables
 }
