@@ -37,7 +37,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="pruebas.PanelRecogeFirma" name="panelFirma1">
+    <Container class="childout_Javier.PanelRecogeFirma" name="panelFirma1">
 
       <Layout>
         <DimensionLayout dim="0">

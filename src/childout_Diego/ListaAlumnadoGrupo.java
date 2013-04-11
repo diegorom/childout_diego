@@ -18,21 +18,23 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
      */
     Conexion coneccion = new Conexion();
     Relacion relacion = new Relacion(1, 1, 1);
-    GestionRelacion gestion = new GestionRelacion();
-
+    GestionRelacion gestionRelacion = new GestionRelacion();
+    Alumno alumno = new Alumno(1, "Alberto", "1ESO-A");
+    GestionAlumno gestionAlumno = new GestionAlumno();
+    String ListaGruposSeleccionada;
+    
     public ListaAlumnadoGrupo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        /*
-        int numElementos = fichero.getListaNiveles().size();
-        String[] arrayParaJComboBox =new String[numElementos];
-        fichero.getListaNiveles().toArray(arrayParaJComboBox);
-        ComboBoxModel c = new DefaultComboBoxModel(arrayParaJComboBox);
-        jComboBox2.setModel(c);
-       */
         coneccion.conectar("localhost", "root", "");
-        gestion.delete(relacion);
-        //gestion.update(relacion);
+        
+        int numElementos = gestionAlumno.findGrupos().size();
+        String[] arrayParaJComboBox =new String[numElementos];
+        gestionAlumno.findGrupos().toArray(arrayParaJComboBox);
+        ComboBoxModel c = new DefaultComboBoxModel(arrayParaJComboBox);
+        jComboBox1.setModel(c);
+
+  
         
     }
 
@@ -132,6 +134,8 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
+        ListaGruposSeleccionada = jComboBox1.getSelectedItem().toString();
+        jList2.setVariable(ListaGruposSeleccionada);
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
