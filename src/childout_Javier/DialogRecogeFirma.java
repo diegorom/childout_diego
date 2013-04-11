@@ -1,4 +1,4 @@
-package pruebas;
+package childout_Javier;
 
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
@@ -27,7 +27,7 @@ public class DialogRecogeFirma extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelFirma1 = new pruebas.PanelRecogeFirma();
+        panelFirma1 = new childout_Javier.PanelRecogeFirma();
         jToolBar1 = new javax.swing.JToolBar();
         jButtonAceptar = new javax.swing.JButton();
         jButtonLimpiar = new javax.swing.JButton();
@@ -161,6 +161,6 @@ public class DialogRecogeFirma extends javax.swing.JDialog {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JToolBar jToolBar1;
-    private pruebas.PanelRecogeFirma panelFirma1;
+    private childout_Javier.PanelRecogeFirma panelFirma1;
     // End of variables declaration//GEN-END:variables
 }
