@@ -21,10 +21,10 @@ public class GestionRelacion {
         try { 
             
             Statement sentenciaSQL = Conexion.conexion.createStatement();
-            ResultSet resultados = sentenciaSQL.executeQuery("SELECT * FROM alumno NATURAL JOIN relacion WHERE Id_autorizado = "+ id_autorizado);
+            ResultSet resultados = sentenciaSQL.executeQuery("SELECT * FROM alumno NATURAL JOIN relacion WHERE IdAutorizado = "+ id_autorizado);
             
             while (resultados.next()) { 
-                Alumno alumno = new Alumno(resultados.getInt("Id_Alumno"), resultados.getString("nombre"), resultados.getString("grupo"));
+                Alumno alumno = new Alumno(resultados.getInt("IdAlumno"), resultados.getString("nombre"), resultados.getString("grupo"));
                 alumnos.add(alumno);
                 
                            
@@ -46,7 +46,9 @@ public class GestionRelacion {
         try { 
             
             Statement sentenciaSQL = Conexion.conexion.createStatement();
-            int resultados = sentenciaSQL.executeUpdate("INSERT relacion(Id_Alumno,Id_Autorizado) VALUES  ("+ relacion.getIdAlumno() +","+ relacion.getIdAutorizado() + ")");
+            int resultados = sentenciaSQL.executeUpdate("INSERT relacion SET id_alumno='" + relacion.getIdAlumno()+
+                    "', id_autorizado='"+ relacion.getIdAlumno()+"'");
+            
             
             
                 
