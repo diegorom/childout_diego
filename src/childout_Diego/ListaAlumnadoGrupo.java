@@ -4,6 +4,7 @@
  */
 package childout_Diego;
 
+import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
@@ -22,6 +23,7 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
     Alumno alumno = new Alumno(1, "Alberto", "1ESO-A");
     GestionAlumno gestionAlumno = new GestionAlumno();
     String ListaGruposSeleccionada;
+
     
     public ListaAlumnadoGrupo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -135,7 +137,8 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
         ListaGruposSeleccionada = jComboBox1.getSelectedItem().toString();
-        jList2.setVariable(ListaGruposSeleccionada);
+        ArrayList<Alumno> findByGrupo = gestionAlumno.findByGrupo(""+ListaGruposSeleccionada);
+        jList2.setSelectionModel(null)setVariable(ListaGruposSeleccionada);
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
 

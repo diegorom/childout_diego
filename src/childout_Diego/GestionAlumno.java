@@ -4,7 +4,6 @@
  */
 package childout_Diego;
 
-import childout_Alejandro.*;
 import childout.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,8 +17,9 @@ import java.util.ArrayList;
  */
 public class GestionAlumno {
 
-    
-    
+    Statement stmt =null;
+    ResultSet rsLista = null;
+    ArrayList<Alumno> resultadoAlumno = new ArrayList();
 
     public Alumno get(int id_alumno) {
         Alumno alumno = null;
@@ -88,4 +88,35 @@ public class GestionAlumno {
         }
         return true;
     }
+    
+    private ArrayList<Alumno> findByGrupo(String grupo){
+       
+       Conexion.conectar("127.0.0.1","root","");
+       
+       String sql = "SELECT *"
+                        + "FROM alumno "
+                            + "where(grupo like %"+grupo+"%)";
+        
+        try {
+                
+                rsLista = stmt.executeQuery(sql);
+                  while (rsLista.next()) 
+                   {
+                        int id_alumno = rsLista.getInt("id_alumno");
+                        String nombre = rsLista.getString("nombre");
+                        grupo = rsLista.getString("grupo");
+                        
+                        Alumno alumno = new Alumno (id_alumno,nombre,grupo);
+                        resultadoAlumno.add(alumno);
+                    }
+   
+
+        }catch (Exception e) {
+            System.out.print("Error");
+            System.out.print(sql);
+            e.printStackTrace();
+        }
+
+       return resultadoAlumno;
+   }
 }
