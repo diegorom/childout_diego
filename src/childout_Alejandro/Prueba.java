@@ -15,8 +15,18 @@ public class Prueba {
      */
     public static void main(String[] args) {
         Conexion.conectar("localhost","root","");
-        GestionAlumno a = new GestionAlumno();
+        GestionAlumno gestionAlumno = new GestionAlumno();
+        //Alumno al = gestionAlumno.get(1);
+        //System.out.println(gestionAlumno.get(1).id_alumno+","+gestionAlumno.get(1).nombre+","+gestionAlumno.get(1).grupo);
+        //gestionAlumno.delete(al);
+        //Alumno alumno = gestionAlumno.get(2);
+        //alumno.setNombre("'Juan'");
+        //alumno.setGrupo("'1ESO-A'");
+        //gestionAlumno.update(alumno);
+        for(int i=0; i<gestionAlumno.findGrupos().size(); i++){
+        System.out.println(gestionAlumno.findGrupos().get(i));
+        }
+
         
-        System.out.println(a.get(1).id_alumno+","+a.get(1).nombre+","+a.get(1).grupo);
     }
 }
