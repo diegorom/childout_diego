@@ -18,7 +18,7 @@ public class Autorizado {
     private String email;
     private String telefono;
     private String dni;
-     private Blob foto;
+    private Blob foto;
     private Blob firma;
     private String parentesco;
     private Blob huella;
@@ -31,10 +31,9 @@ public class Autorizado {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-   
 
-    public Autorizado(int id,String nombre,String apellidos, String dni, String email, String telefono, Blob foto, Blob firma, String parentesco, Blob huella,int denegado) {
-        this.id=id;
+    public Autorizado(int id, String nombre, String apellidos, String dni, String email, String telefono, Blob foto, Blob firma, String parentesco, Blob huella, int denegado) {
+        this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
@@ -44,7 +43,7 @@ public class Autorizado {
         this.firma = firma;
         this.parentesco = parentesco;
         this.huella = huella;
-        this.denegado=denegado;
+        this.denegado = denegado;
     }
 
     public int getId() {
