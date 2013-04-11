@@ -20,7 +20,7 @@ public class GestionAlumno {
     
     
 
-    private Alumno get(int id_alumno) {
+    public Alumno get(int id_alumno) {
         Alumno alumno = null;
         try {
 
@@ -40,7 +40,7 @@ public class GestionAlumno {
         return alumno;
     }
 
-    private ArrayList<String> findGrupos() {
+    public ArrayList<String> findGrupos() {
         ArrayList<String> grupos = new ArrayList();
         try {
             String sql = "Select grupo from alumno group by grupo";
@@ -57,7 +57,7 @@ public class GestionAlumno {
         return grupos;
     }
 
-    private boolean delete(Alumno alumno) {
+    public boolean delete(Alumno alumno) {
         
         try {
             
@@ -73,7 +73,7 @@ public class GestionAlumno {
         return true;
     }
 
-    private boolean update(Alumno alumno) {
+    public boolean update(Alumno alumno) {
         try {
             
             Statement stmt = Conexion.conexion.createStatement();
