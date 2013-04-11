@@ -15,9 +15,14 @@ public class Autorizado {
     private int id;
     private String nombre;
     private String apellidos;
-    private String correo;
+    private String email;
     private String telefono;
     private String dni;
+     private Blob foto;
+    private Blob firma;
+    private String parentesco;
+    private Blob huella;
+    private int denegado;
 
     public String getApellidos() {
         return apellidos;
@@ -26,17 +31,13 @@ public class Autorizado {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-    private Blob foto;
-    private Blob firma;
-    private String parentesco;
-    private Blob huella;
-    private boolean denegado;
+   
 
-    public Autorizado(int id, String nombre,String apellidos, String correo, String telefono, String dni, Blob foto, Blob firma, String parentesco, Blob huella,boolean denegado) {
-        this.id = id;
+    public Autorizado(int id,String nombre,String apellidos, String dni, String email, String telefono, Blob foto, Blob firma, String parentesco, Blob huella,int denegado) {
+        this.id=id;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.correo = correo;
+        this.email = email;
         this.telefono = telefono;
         this.dni = dni;
         this.foto = foto;
@@ -63,11 +64,11 @@ public class Autorizado {
     }
 
     public String getCorreo() {
-        return correo;
+        return email;
     }
 
     public void setCorreo(String correo) {
-        this.correo = correo;
+        this.email = email;
     }
 
     public String getTelefono() {
@@ -118,11 +119,11 @@ public class Autorizado {
         this.huella = huella;
     }
 
-    public boolean isDenegado() {
+    public int getDenegado() {
         return denegado;
     }
 
-    public void setDenegado(boolean denegado) {
+    public void setDenegado(int denegado) {
         this.denegado = denegado;
     }
 }

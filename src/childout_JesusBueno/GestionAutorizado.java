@@ -50,9 +50,9 @@ public class GestionAutorizado {
             Blob firma = rs.getBlob("firma");
             String parentesco = rs.getString("parentesco");
             Blob huella = rs.getBlob("huella");
-            boolean denegado = rs.getBoolean("autorizado");
+            int denegado = rs.getInt("denegado");
             
-            Autorizado autorizado = new Autorizado(id, nombre, apellidos, email, telefono, dni, foto, firma, parentesco, huella, denegado);
+            Autorizado autorizado = new Autorizado( id,nombre, apellidos, email, telefono, dni, foto, firma, parentesco, huella, denegado);
             
             return autorizado;
             
@@ -69,6 +69,7 @@ public class GestionAutorizado {
         
         int id = autorizado.getId();
         String nombre = autorizado.getNombre();
+        String apellidos = autorizado.getApellidos();
         String correo = autorizado.getCorreo();
         String telefono = autorizado.getTelefono();
         String dni = autorizado.getDni();
@@ -76,16 +77,16 @@ public class GestionAutorizado {
         Blob firma = autorizado.getFirma();
         String parentesco = autorizado.getParentesco();
         Blob huella = autorizado.getHuella();
-        boolean denegado = autorizado.isDenegado();
+        int denegado = autorizado.getDenegado();
         
         
-        String sql = "INSERT INTO autorizado(nombre,grupo) VALUES "
-                + "('" + nombre + "','" + correo + "','" + telefono + "','" + dni + "','" + foto + "','" + firma + "','" + parentesco + "','" + huella + "','" + denegado + "')";
+        String sql = "INSERT INTO autorizado VALUES "
+                + "("+0+",'" + nombre + "','"+apellidos+ "','" + dni + "','" + correo + "','" + telefono + "','" + foto + "','" + firma + "','" + parentesco + "','" + huella + "','" + denegado + "')";
         
         
         try {
             Statement sentenciaSQL = Conexion.conexion.createStatement();
-            sentenciaSQL.executeUpdate(sql);            
+            sentenciaSQL.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);            
             ResultSet resultado = sentenciaSQL.getGeneratedKeys();
             
             if (resultado.next()) {
@@ -97,8 +98,9 @@ public class GestionAutorizado {
             }
             
         } catch (Exception e) {
-            System.out.print("Error");
+            System.out.print("Error en la sentencia sql: ");
             System.out.print(sql);
+            e.printStackTrace();
             
         }
         return autoincrementoID;
