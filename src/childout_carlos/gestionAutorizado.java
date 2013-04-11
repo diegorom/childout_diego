@@ -21,7 +21,7 @@ public class gestionAutorizado {
     
   
     
-    private boolean delete (Autorizado autorizado) {
+    public boolean delete (Autorizado autorizado) {
     try {
         String sql = "Delete from autorizado where id= "+autorizado.getId();
         Statement stmt = Conexion.conexion.createStatement();
@@ -36,17 +36,18 @@ public class gestionAutorizado {
      return true;
     }
   
-    private Autorizado get (int id){
-      Autorizado autorizado= null;
+    public Autorizado get (int id){
+      
+        Autorizado autorizado= null;
       
         try{
-            String sql = "Select * From autorizado where =" + id;
+            String sql = "Select * From autorizado where id_autorizado = " + id;
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            id = rs.getInt("id");
+            id = rs.getInt("id_autorizado");
             String nombre = rs.getString("nombre");
-            String correo = rs.getString("correo");
+            String correo = rs.getString("email");
             String telefono = rs.getString("telefono");
             String dni = rs.getString("dni");
             Blob firma = rs.getBlob("firma");
@@ -61,7 +62,7 @@ public class gestionAutorizado {
     return autorizado;
     }
     
-    private boolean Update (Autorizado autorizado) {
+    public boolean Update (Autorizado autorizado) {
       
        try {
         String sql = "Update autorizado set "+autorizado.getId()+ autorizado.getDni() + autorizado.getNombre() + autorizado.getParentesco() + autorizado.getTelefono();
