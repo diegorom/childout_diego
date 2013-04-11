@@ -19,16 +19,17 @@ public class GestionRelacion {
     ArrayList<Alumno> findByAutorizado(int id_autorizado) {
         ArrayList<Alumno> alumnos = new ArrayList();
         try { 
-            
+            System.out.println("1--");
             Statement sentenciaSQL = Conexion.conexion.createStatement();
-            ResultSet resultados = sentenciaSQL.executeQuery("SELECT * FROM alumno NATURAL JOIN relacion WHERE IdAutorizado = "+ id_autorizado);
+            ResultSet resultados = sentenciaSQL.executeQuery("SELECT * FROM alumno NATURAL JOIN relacion WHERE id_autorizado = "+ id_autorizado);
             
+            System.out.println("2--");
             while (resultados.next()) { 
-                Alumno alumno = new Alumno(resultados.getInt("IdAlumno"), resultados.getString("nombre"), resultados.getString("grupo"));
+                Alumno alumno = new Alumno(resultados.getInt("id_alumno"), resultados.getString("nombre"), resultados.getString("grupo"));
                 alumnos.add(alumno);
                 
                            
-                        
+            System.out.println("3--");            
             }
                 
         } catch (SQLException ex) {
