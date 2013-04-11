@@ -18,17 +18,9 @@ public class DialogRecogeFirma extends javax.swing.JDialog {
         
         jToolBar1.setFloatable(false);
         setTitle("Recoger firma");
-        maximize();
+        this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds()); 
         
         firma = null;
-    }
-
-    private void maximize() {
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        double width = screenSize.getWidth();
-//        double height = screenSize.getHeight();
-//        this.setSize((int) width, (int) height);
-        this.setBounds(GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds()); 
     }
 
     @SuppressWarnings("unchecked")
