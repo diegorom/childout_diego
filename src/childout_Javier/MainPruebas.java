@@ -1,4 +1,4 @@
-package pruebas;
+package childout_Javier;
 
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ public class MainPruebas extends javax.swing.JFrame {
      */
     public MainPruebas() {
         initComponents();
-        Conexion.conectar("localhost", "root", "root");
+        Conexion.conectar("localhost", "root", "");
     }
 
     /**
@@ -52,6 +52,8 @@ public class MainPruebas extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setToolTipText("");
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
