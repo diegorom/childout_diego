@@ -37,21 +37,23 @@ public class gestionAutorizado {
     }
   
     private Autorizado get (int id){
+      Autorizado autorizado= null;
       
         try{
-            String sql = "Select * From autorizado where "+"id";
+            String sql = "Select * From autorizado where =" + id;
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            int id = rs.getInt("");
-            String nombre = rs.getString(nombre);
-            String correo = rs.getString(correo);
-            String telefono = rs.getString(telefono);
-            String dni = rs.getString(dni);
-            Blob firma = rs.getBlob(firma);
-            
-            
-                    
+            id = rs.getInt("id");
+            String nombre = rs.getString("nombre");
+            String correo = rs.getString("correo");
+            String telefono = rs.getString("telefono");
+            String dni = rs.getString("dni");
+            Blob firma = rs.getBlob("firma");
+            Blob foto = rs.getBlob("firma");
+            String parentesco = rs.getString("parentesco");
+            Blob huella = rs.getBlob("huella");
+            autorizado = new Autorizado(id,  nombre,  correo,  telefono,  dni,  foto,  firma,  parentesco,  huella);
         }catch (SQLException ex) {
             System.out.println("Error al encontrar al autorizado");
             ex.printStackTrace();
