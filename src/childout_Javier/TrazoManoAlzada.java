@@ -1,4 +1,4 @@
-package pruebas;
+package childout_Javier;
 
 import java.awt.Graphics;
 import java.awt.Point;
@@ -30,7 +30,7 @@ public class TrazoManoAlzada {
         }
     }
     
-    public Point getPointOrigen() {
+    public Point getTopLeftCorner() {
         int minX=0, minY=0;
         if(listPoints.size()>0) {
             minX = listPoints.get(0).x;
@@ -50,7 +50,7 @@ public class TrazoManoAlzada {
         return new Point(minX, minY);
     }
 
-    public Point getPointFin() {
+    public Point getBottomRightCorner() {
         int maxX=0, maxY=0;
         if(listPoints.size()>0) {
             maxX = listPoints.get(0).x;
@@ -63,7 +63,7 @@ public class TrazoManoAlzada {
             maxY = listPoints.get(0).y;
             for(Point p:listPoints) {
                 if(p.y > maxY) {
-                    maxX = p.y;
+                    maxY = p.y;
                 }
             }
         }        
