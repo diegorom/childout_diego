@@ -16,35 +16,92 @@ import java.util.logging.Logger;
  * @author DAW
  */
 public class GestionAutorizado {
-
+    
+    private int id;
+    private String nombre;
+    private String apellidos;
+    private String email;
+    private String telefono;
+    private String dni;
+    private Blob foto;
+    private Blob firma;
+    private String parentesco;
+    private Blob huella;
+    private boolean denegado;
+    private int autoincrementoID;
+    ResultSet rsLista = null;
+    
     Autorizado findByDNI(String dni) {
         
-        String sql = "Select * from alumno where dni = '"+dni+"' ";
+        String sql = "Select * from autorizado where dni = '" + dni+"'" ;
         
         
         try {
-            Statement sentenciaSQL = conexion.createStatement();
+            
+            Statement sentenciaSQL = Conexion.conexion.createStatement();
             ResultSet rs = sentenciaSQL.executeQuery(sql);
+            rs.first();
+            int id = rs.getInt("id_autorizado");
+            String nombre = rs.getString("nombre");
+            String apellidos = rs.getString("apellidos");
+            String email = rs.getString("email");
+            String telefono = rs.getString("telefono");
+            Blob foto = rs.getBlob("foto");
+            Blob firma = rs.getBlob("firma");
+            String parentesco = rs.getString("parentesco");
+            Blob huella = rs.getBlob("huella");
+            boolean denegado = rs.getBoolean("autorizado");
             
-            int id = rs.getInt("id");
-            String nombre = rs.getNString("nombre");
-            String correo = rs.getNString("correo");
-            String telefono = rs.getNString("telefono");            
-            Blob foto =rs.getBlob("foto");
-            Blob firma =rs.getBlob("firma");
-            String parentesco = rs.getNString("parentesco");
-            Blob huella =rs.getBlob("huella");
+            Autorizado autorizado = new Autorizado(id, nombre, apellidos, email, telefono, dni, foto, firma, parentesco, huella, denegado);
             
-            
-            
-            
-            
-            
+            return autorizado;
             
         } catch (SQLException ex) {
             Logger.getLogger(GestionAutorizado.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+            
         }
-
-
+        
+        
+    }
+    
+    int Insert(Autorizado autorizado) {
+        
+        int id = autorizado.getId();
+        String nombre = autorizado.getNombre();
+        String correo = autorizado.getCorreo();
+        String telefono = autorizado.getTelefono();
+        String dni = autorizado.getDni();
+        Blob foto = autorizado.getFoto();
+        Blob firma = autorizado.getFirma();
+        String parentesco = autorizado.getParentesco();
+        Blob huella = autorizado.getHuella();
+        boolean denegado = autorizado.isDenegado();
+        
+        
+        String sql = "INSERT INTO autorizado(nombre,grupo) VALUES "
+                + "('" + nombre + "','" + correo + "','" + telefono + "','" + dni + "','" + foto + "','" + firma + "','" + parentesco + "','" + huella + "','" + denegado + "')";
+        
+        
+        try {
+            Statement sentenciaSQL = Conexion.conexion.createStatement();
+            sentenciaSQL.executeUpdate(sql);            
+            ResultSet resultado = sentenciaSQL.getGeneratedKeys();
+            
+            if (resultado.next()) {
+                autoincrementoID = resultado.getInt(1);
+            } else {
+                System.out.print("Error al Sacar el Id del Autorizado");
+                
+                
+            }
+            
+        } catch (Exception e) {
+            System.out.print("Error");
+            System.out.print(sql);
+            
+        }
+        return autoincrementoID;
+        
     }
 }
