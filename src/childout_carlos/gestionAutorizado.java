@@ -36,14 +36,22 @@ public class gestionAutorizado {
      return true;
     }
   
-    private Autorizado get (Autorizado autorizado){
+    private Autorizado get (int id){
       
         try{
-            String sql = "Select id From autorizado where "+"id";
+            String sql = "Select * From autorizado where "+"id";
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            int id = rs.getInt("id");
+            int id = rs.getInt("");
+            String nombre = rs.getString(nombre);
+            String correo = rs.getString(correo);
+            String telefono = rs.getString(telefono);
+            String dni = rs.getString(dni);
+            Blob firma = rs.getBlob(firma);
+            
+            
+                    
         }catch (SQLException ex) {
             System.out.println("Error al encontrar al autorizado");
             ex.printStackTrace();
@@ -54,7 +62,7 @@ public class gestionAutorizado {
     private boolean Update (Autorizado autorizado) {
       
        try {
-        String sql = "Update autorizado set "+autorizado.getId();
+        String sql = "Update autorizado set "+autorizado.getId()+ autorizado.getDni() + autorizado.getNombre() + autorizado.getParentesco() + autorizado.getTelefono();
         Statement stmt = Conexion.conexion.createStatement();
         stmt.executeUpdate(sql);
         
