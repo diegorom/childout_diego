@@ -1,4 +1,4 @@
-package pruebas;
+package childout_Javier;
 
 import java.awt.Color;
 import java.awt.Cursor;

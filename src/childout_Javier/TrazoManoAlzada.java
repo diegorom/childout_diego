@@ -1,4 +1,4 @@
-package pruebas;
+package childout_Javier;
 
 import java.awt.Graphics;
 import java.awt.Point;
