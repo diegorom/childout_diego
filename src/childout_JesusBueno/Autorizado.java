@@ -11,19 +11,31 @@ import java.sql.Blob;
  * @author DAW
  */
 public class Autorizado {
+
     private int id;
     private String nombre;
+    private String apellidos;
     private String correo;
     private String telefono;
     private String dni;
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
     private Blob foto;
     private Blob firma;
     private String parentesco;
     private Blob huella;
+    private boolean denegado;
 
-    public Autorizado(int id, String nombre, String correo, String telefono, String dni, Blob foto, Blob firma, String parentesco, Blob huella) {
+    public Autorizado(int id, String nombre,String apellidos, String correo, String telefono, String dni, Blob foto, Blob firma, String parentesco, Blob huella,boolean denegado) {
         this.id = id;
         this.nombre = nombre;
+        this.apellidos = apellidos;
         this.correo = correo;
         this.telefono = telefono;
         this.dni = dni;
@@ -31,6 +43,7 @@ public class Autorizado {
         this.firma = firma;
         this.parentesco = parentesco;
         this.huella = huella;
+        this.denegado=denegado;
     }
 
     public int getId() {
@@ -104,5 +117,12 @@ public class Autorizado {
     public void setHuella(Blob huella) {
         this.huella = huella;
     }
-    
+
+    public boolean isDenegado() {
+        return denegado;
+    }
+
+    public void setDenegado(boolean denegado) {
+        this.denegado = denegado;
+    }
 }
