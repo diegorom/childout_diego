@@ -47,6 +47,7 @@ public class gestionAutorizado {
             rs.next();
             id = rs.getInt("id_autorizado");
             String nombre = rs.getString("nombre");
+            String apellidos = rs.getString("apellidos");
             String correo = rs.getString("email");
             String telefono = rs.getString("telefono");
             String dni = rs.getString("dni");
@@ -54,7 +55,7 @@ public class gestionAutorizado {
             Blob foto = rs.getBlob("firma");
             String parentesco = rs.getString("parentesco");
             Blob huella = rs.getBlob("huella");
-            autorizado = new Autorizado(id,  nombre,  correo,  telefono,  dni,  foto,  firma,  parentesco,  huella);
+            Autorizado d = new Autorizado(id,  nombre, apellidos,  correo,  telefono,  dni,  foto,  firma,  parentesco,  huella, true);
         }catch (SQLException ex) {
             System.out.println("Error al encontrar al autorizado");
             ex.printStackTrace();
