@@ -44,7 +44,7 @@ public class GestionRelacion {
         try { 
             
             Statement sentenciaSQL = Conexion.conexion.createStatement();
-            ResultSet resultados = sentenciaSQL.executeUpdate("INSERT relacion(Id_Alumno,Id_Autorizado) VALUES  ("+ Relacion.id_autorizado);
+            ResultSet resultados = sentenciaSQL.executeQuery("INSERT relacion(Id_Alumno,Id_Autorizado) VALUES  ("+ Relacion.IdAlumno +","+Relacion.IdAutorizado+")");
             // otro problema es insertar una nueva relacion sobre una consulta de la
             // que tengo un JOIN
             

@@ -5,7 +5,7 @@ import childout.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Conexion1 {
+public class Conexion {
     
     static Connection conexion = null;
     
