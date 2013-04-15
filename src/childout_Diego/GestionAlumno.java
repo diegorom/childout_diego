@@ -87,11 +87,9 @@ public class GestionAlumno {
         }
         return true;
     }
-    
-    private ArrayList<Alumno> findByGrupo(String grupo){
-       ArrayList<Alumno> resultadoAlumno = new ArrayList();
-       Conexion.conectar("127.0.0.1","root","");
-       
+    /*
+    public ArrayList<Alumno> findByGrupo(String grupo){
+       ArrayList<Alumno> resultadoAlumno = new ArrayList();    
        String sql = "SELECT *"
                         + "FROM alumno "
                             + "where(grupo like %"+grupo+"%)";
@@ -118,4 +116,27 @@ public class GestionAlumno {
 
        return resultadoAlumno;
    }
+   */
+
+    
+    public ArrayList<Alumno> findByGrupo(String grupo) {
+        ArrayList<Alumno> resultadoAlumno = new ArrayList();
+        try {
+            Statement stmt = Conexion.conexion.createStatement();
+            String sql = "SELECT * FROM alumno WHERE (nombre like '%"+grupo+"%')";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                    int id_alumno = rs.getInt("id_alumno");
+                    String nombre = rs.getString("nombre");
+                    grupo = rs.getString("grupo");
+                    System.out.print(id_alumno+", "+nombre+", "+grupo);
+                Alumno alumno = new Alumno (id_alumno,nombre,grupo);
+                resultadoAlumno.add(alumno);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar la base de datos");
+            ex.printStackTrace();
+        }
+        return resultadoAlumno;
+    }
 }
