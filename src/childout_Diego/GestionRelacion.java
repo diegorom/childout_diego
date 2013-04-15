@@ -16,30 +16,17 @@ import java.util.logging.Logger;
  *
  * @author diego
  */
-public class GestionRelacion {
-    Relacion relacion = new Relacion(0, 0 ,0);
-    boolean delete(Relacion relacion){
-        try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-            } catch (Exception e) {
-                System.out.println("Error Driver MySQL");
-                e.printStackTrace();
-                return false;
-            }
-            Connection conexion = null;
 
-            try {
-                conexion = DriverManager.getConnection(
-                        "jdbc:mysql://sergio/childout",
-                        "usuario", "usuario");
-            } catch (Exception e) {
-                System.out.println("Error al conectarse a la base de datos");
-                return false;
-            }
-            
+public class GestionRelacion {
+
+        Relacion relacion;
+        
+    boolean delete(Relacion relacion){
+        this.relacion=relacion;
         try {
-            Statement stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(("DELETE FROM relacion WHERE Id_relaccion=")+this.relacion.getIdRelaccion());
+            Statement stmt = Conexion.conexion.createStatement();
+            String sql = "DELETE FROM relacion WHERE id_relacion="+relacion.getIdRelaccion();
+            stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(GestionRelacion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al consultar la base de datos");
@@ -49,27 +36,11 @@ public class GestionRelacion {
     }   
     
     boolean update(Relacion relacion){
+        this.relacion=relacion;
         try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-            } catch (Exception e) {
-                System.out.println("Error Driver MySQL");
-                e.printStackTrace();
-                return false;
-            }
-            Connection conexion = null;
-
-            try {
-                conexion = DriverManager.getConnection(
-                        "jdbc:mysql://sergio/childout",
-                        "usuario", "usuario");
-            } catch (Exception e) {
-                System.out.println("Error al conectarse a la base de datos");
-                return false;
-            }
-            
-        try {
-            Statement stmt = conexion.createStatement();
-            ResultSet rs = stmt.executeQuery(("UPDATE  relacion SET id_alumno="+this.relacion.getIdAlumno()+", id_autorizado="+this.relacion.getIdAutorizado()+"WHERE Id_relaccion=")+this.relacion.getIdRelaccion());
+            Statement stmt = Conexion.conexion.createStatement();
+            String sql = "UPDATE  relacion SET id_alumno="+relacion.getIdAlumno()+", id_autorizado="+relacion.getIdAutorizado()+"WHERE id_relacion="+relacion.getIdRelaccion();
+            stmt.executeUpdate(sql);
         } catch (SQLException ex) {
             Logger.getLogger(GestionRelacion.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Error al consultar la base de datos");

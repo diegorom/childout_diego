@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package childout_Alejandro;
+package childout_Diego;
 
+import childout_Alejandro.*;
 import childout.*;
 import java.sql.Connection;
 import java.sql.ResultSet;

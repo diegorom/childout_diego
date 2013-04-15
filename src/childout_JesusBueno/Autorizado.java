@@ -11,26 +11,39 @@ import java.sql.Blob;
  * @author DAW
  */
 public class Autorizado {
+
     private int id;
     private String nombre;
-    private String correo;
+    private String apellidos;
+    private String email;
     private String telefono;
     private String dni;
     private Blob foto;
     private Blob firma;
     private String parentesco;
     private Blob huella;
+    private int denegado;
 
-    public Autorizado(int id, String nombre, String correo, String telefono, String dni, Blob foto, Blob firma, String parentesco, Blob huella) {
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public Autorizado(int id, String nombre, String apellidos, String dni, String email, String telefono, Blob foto, Blob firma, String parentesco, Blob huella, int denegado) {
         this.id = id;
         this.nombre = nombre;
-        this.correo = correo;
+        this.apellidos = apellidos;
+        this.email = email;
         this.telefono = telefono;
         this.dni = dni;
         this.foto = foto;
         this.firma = firma;
         this.parentesco = parentesco;
         this.huella = huella;
+        this.denegado = denegado;
     }
 
     public int getId() {
@@ -50,11 +63,11 @@ public class Autorizado {
     }
 
     public String getCorreo() {
-        return correo;
+        return email;
     }
 
     public void setCorreo(String correo) {
-        this.correo = correo;
+        this.email = email;
     }
 
     public String getTelefono() {
@@ -104,5 +117,12 @@ public class Autorizado {
     public void setHuella(Blob huella) {
         this.huella = huella;
     }
-    
+
+    public int getDenegado() {
+        return denegado;
+    }
+
+    public void setDenegado(int denegado) {
+        this.denegado = denegado;
+    }
 }

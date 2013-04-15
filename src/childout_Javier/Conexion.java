@@ -1,9 +1,11 @@
 
-package childout;
+package childout_Javier;
 
-import childout_Diego.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Conexion {
     
@@ -15,10 +17,9 @@ public class Conexion {
                     "jdbc:mysql://"+host+"/childout",
                     usuario, pass);
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-
     }
 }
