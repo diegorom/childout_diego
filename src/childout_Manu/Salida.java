@@ -15,8 +15,9 @@ public class Salida {
     private String observaciones;
     private Blob firma;
     private Blob foto;
+    private String nombre;
     
-    public Salida(int idSalida, Date fecha, Time hora, int idAutorizado, int idAlumno, String motivo, String observaciones, Blob firma, Blob foto) {
+    public Salida(int idSalida, Date fecha, Time hora, int idAutorizado, int idAlumno, String motivo, String observaciones, Blob firma, Blob foto, String nombre) {
         this.idSalida = idSalida;
         this.fecha = fecha;
         this.hora = hora;
@@ -26,6 +27,15 @@ public class Salida {
         this.observaciones = observaciones;
         this.firma = firma;
         this.foto = foto;
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     public int getIdSalida() {
