@@ -19,6 +19,11 @@ public class Alumno {
         this.nombre = nombre;
         this.grupo = grupo;
     }
+     public Alumno( String nombre, String grupo) {
+        
+        this.nombre = nombre;
+        this.grupo = grupo;
+    }
 
     public int getId_alumno() {
         return id_alumno;
