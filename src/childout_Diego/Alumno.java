@@ -4,8 +4,6 @@
  */
 package childout_Diego;
 
-import childout_Alejandro.*;
-import childout_Angel.*;
 
 /**
  *

@@ -6,6 +6,8 @@ package childout_JesusBueno;
 
 import childout_Alejandro.GestionAlumno;
 import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  *
@@ -17,21 +19,28 @@ public class ListaAlumnos extends javax.swing.JPanel {
      * Creates new form ListaAlumnos
      */
     public ListaAlumnos() {
-        Conexion.conectar("localhost", "root","");
-        initComponents();       
-      
-        GestionAlumno ga = new GestionAlumno();
+        Conexion.conectar("localhost", "root", "");
+        initComponents();
 
-         ArrayList<String> lista = ga.findGrupos();
+
+        if (!java.beans.Beans.isDesignTime()) {
+
+
+            GestionAlumno ga = new GestionAlumno();
+
+            ArrayList<String> lista = ga.findGrupos();
 //        ArrayList<String> lista = new ArrayList();
 //        lista.add("1eso");
 //        lista.add("2eso");
 //        lista.add("3eso");
+            jComboBox1.removeAllItems();
 
-        for (int i = 0; i < lista.size(); i++) {
-            jComboBox1.addItem(lista.get(i));
+
+            for (int i = 0; i < lista.size(); i++) {
+                jComboBox1.addItem(lista.get(i));
+            }
+
         }
-
     }
 
     /**
@@ -122,9 +131,7 @@ public class ListaAlumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anadir;
     private javax.swing.JButton editar;

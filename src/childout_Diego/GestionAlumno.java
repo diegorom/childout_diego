@@ -4,8 +4,6 @@
  */
 package childout_Diego;
 
-import childout_Alejandro.*;
-import childout.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,8 +16,9 @@ import java.util.ArrayList;
  */
 public class GestionAlumno {
 
-    
-    
+    Statement stmt =null;
+    ResultSet rsLista = null;
+
 
     public Alumno get(int id_alumno) {
         Alumno alumno = null;
@@ -87,5 +86,57 @@ public class GestionAlumno {
             return false;
         }
         return true;
+    }
+    /*
+    public ArrayList<Alumno> findByGrupo(String grupo){
+       ArrayList<Alumno> resultadoAlumno = new ArrayList();    
+       String sql = "SELECT *"
+                        + "FROM alumno "
+                            + "where(grupo like %"+grupo+"%)";
+        
+        try {
+                
+                rsLista = stmt.executeQuery(sql);
+                  while (rsLista.next()) 
+                   {
+                        int id_alumno = rsLista.getInt("id_alumno");
+                        String nombre = rsLista.getString("nombre");
+                        grupo = rsLista.getString("grupo");
+                        
+                        Alumno alumno = new Alumno (id_alumno,nombre,grupo);
+                        resultadoAlumno.add(alumno);
+                    }
+   
+
+        }catch (Exception e) {
+            System.out.print("Error");
+            System.out.print(sql);
+            e.printStackTrace();
+        }
+
+       return resultadoAlumno;
+   }
+   */
+
+    
+    public ArrayList<Alumno> findByGrupo(String grupo) {
+        ArrayList<Alumno> resultadoAlumno = new ArrayList();
+        try {
+            Statement stmt = Conexion.conexion.createStatement();
+            String sql = "SELECT * FROM alumno WHERE (nombre like '%"+grupo+"%')";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                    int id_alumno = rs.getInt("id_alumno");
+                    String nombre = rs.getString("nombre");
+                    grupo = rs.getString("grupo");
+                    System.out.print(id_alumno+", "+nombre+", "+grupo);
+                Alumno alumno = new Alumno (id_alumno,nombre,grupo);
+                resultadoAlumno.add(alumno);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar la base de datos");
+            ex.printStackTrace();
+        }
+        return resultadoAlumno;
     }
 }
