@@ -38,7 +38,7 @@ public class GestionAlumno {
        
        String sql = "SELECT *"
                         + "FROM alumno "
-                            + "where(nombre like %"+nombre+"%)";
+                            + "where(nombre like '%"+nombre+"%')";
         
         try {
                 
@@ -60,7 +60,7 @@ public class GestionAlumno {
             e.printStackTrace();
         }
         
-        System.out.print(resultadoAlumno);
+        
        return resultadoAlumno;
    }
    

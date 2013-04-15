@@ -15,7 +15,7 @@ public class NewJFrame extends javax.swing.JFrame {
    
     
     
-    Alumno alumno1 = new Alumno("Angelito2","Ningunoooo");
+    //Alumno alumno1 = new Alumno("Angelito2","Ningunoooo");
     public NewJFrame() {
         initComponents();
         
@@ -26,7 +26,7 @@ public class NewJFrame extends javax.swing.JFrame {
         
         
         ArrayList<Alumno> pruebagrupo = new ArrayList();
-        pruebagrupo= gestionAlumno.findByGrupo("1");
+        pruebagrupo= gestionAlumno.findByNombre("an");
         
         for(int i=0; i<pruebagrupo.size(); i++) {
             System.out.println(pruebagrupo.get(i).id_alumno+","+pruebagrupo.get(i).nombre+","+pruebagrupo.get(i).grupo);
