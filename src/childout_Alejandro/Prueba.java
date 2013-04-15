@@ -23,8 +23,8 @@ public class Prueba {
         //alumno.setNombre("'Juan'");
         //alumno.setGrupo("'1ESO-A'");
         //gestionAlumno.update(alumno);
-        for(int i=0; i<gestionAlumno.findGrupos().size(); i++){
-        System.out.println(gestionAlumno.findGrupos().get(i));
+        for(int i=0; i<gestionAlumno.findByGrupo("1PRI-B").size(); i++){
+        System.out.println(gestionAlumno.findByGrupo("1PRI-B").get(i));
         }
 
         

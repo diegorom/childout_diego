@@ -4,17 +4,30 @@
  */
 package childout_Alejandro;
 
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author DAW
  */
 public class PersonaAutorizada extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PersonaAutorizada
-     */
+    GestionAlumno gestionAlumno = new GestionAlumno();
+    
+    
     public PersonaAutorizada() {
         initComponents();
+        if(!java.beans.Beans.isDesignTime()){
+        
+        int numElementos = gestionAlumno.findGrupos().size();
+        String[] arrayParaJComboBox = new String[numElementos];
+        gestionAlumno.findGrupos().toArray(arrayParaJComboBox);
+        ComboBoxModel c = new DefaultComboBoxModel(arrayParaJComboBox);
+        jComboBox1.setModel(c);
+        }
     }
 
     /**
@@ -77,6 +90,11 @@ public class PersonaAutorizada extends javax.swing.JPanel {
         jLabel6.setText("Alumnos/as:");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Agregar");
 
@@ -139,7 +157,7 @@ public class PersonaAutorizada extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(213, 213, 213)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jButton3)
@@ -153,9 +171,8 @@ public class PersonaAutorizada extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(57, 57, 57)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,6 +280,24 @@ public class PersonaAutorizada extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        DefaultListModel listModel = new DefaultListModel();
+        Alumno al =null;
+        String gruposSeleccionados = jComboBox1.getSelectedItem().toString();
+        ArrayList<Alumno> listaAlumnosSeleccionada = gestionAlumno.findByGrupo(gruposSeleccionados);
+        
+        for (int i = 0; i < listaAlumnosSeleccionada.size(); i++) {
+            //Añadir cada elemento del ArrayList en el modelo de la lista
+            String nombreApellidos = listaAlumnosSeleccionada.get(i).getNombre();
+            System.out.println(nombreApellidos);
+            
+            listModel.add(i, nombreApellidos);
+        }
+        jList1.setModel(listModel);
+        al = listaAlumnosSeleccionada.get(jList1.getSelectedIndex());
+        System.out.println(al.getId_alumno());
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
