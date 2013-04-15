@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package childout_Angel;
+package childout_jeronimo;
+
+import childout_Angel.*;
 
 /**
  *
@@ -16,11 +18,6 @@ public class Alumno {
 
     public Alumno(int id_alumno, String nombre, String grupo) {
         this.id_alumno = id_alumno;
-        this.nombre = nombre;
-        this.grupo = grupo;
-    }
-     public Alumno( String nombre, String grupo) {
-        
         this.nombre = nombre;
         this.grupo = grupo;
     }
