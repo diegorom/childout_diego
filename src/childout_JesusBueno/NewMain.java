@@ -23,6 +23,7 @@ public class NewMain {
         Blob firma=null;
         Blob huella=null;
         Conexion.conectar("localhost","root","");
+        
         GestionAutorizado autorizado = new GestionAutorizado();
         Autorizado a =autorizado.findByDNI("11111112b");
         System.out.println("\n Apellidos: "+a.getApellidos()+"\n Correo: "+a.getCorreo()+"\n Dni: "+a.getDni());

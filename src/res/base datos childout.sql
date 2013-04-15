@@ -26,6 +26,7 @@ CREATE TABLE autorizado (
 	firma blob null,
 	parentesco varchar(20),
 	huella blob null,
+        
     constraint pk_autorizado primary key (id_autorizado)
 );
 
