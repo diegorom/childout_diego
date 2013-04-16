@@ -4,8 +4,10 @@
  */
 package childout_Diego;
 
+import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -16,26 +18,27 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
     /**
      * Creates new form ListaAlumnadoGrupo
      */
-    Conexion coneccion = new Conexion();
+    Conexion conexion = new Conexion();
     Relacion relacion = new Relacion(1, 1, 1);
     GestionRelacion gestionRelacion = new GestionRelacion();
     Alumno alumno = new Alumno(1, "Alberto", "1ESO-A");
     GestionAlumno gestionAlumno = new GestionAlumno();
-    String ListaGruposSeleccionada;
-    
+    //String ListaAlumnosGrupo;
+    //DefaultListModel listModel;
+    //ArrayList<Alumno> ListaGruposSeleccionada;
     public ListaAlumnadoGrupo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        coneccion.conectar("localhost", "root", "");
-        
+        conexion.conectar("localhost", "root", "");
+
         int numElementos = gestionAlumno.findGrupos().size();
-        String[] arrayParaJComboBox =new String[numElementos];
+        String[] arrayParaJComboBox = new String[numElementos];
         gestionAlumno.findGrupos().toArray(arrayParaJComboBox);
         ComboBoxModel c = new DefaultComboBoxModel(arrayParaJComboBox);
         jComboBox1.setModel(c);
-
-  
         
+
+
     }
 
     /**
@@ -88,6 +91,11 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
         jButton2.setText("Editar");
 
         jButton3.setText("Suprimir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,12 +109,12 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,27 +125,43 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(24, 24, 24)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        ListaGruposSeleccionada = jComboBox1.getSelectedItem().toString();
-        jList2.setVariable(ListaGruposSeleccionada);
+        System.out.print("HA ENTRADO");
+        String grupoSelecionado = jComboBox1.getSelectedItem().toString();
+        System.out.print(""+grupoSelecionado);
+        ArrayList<Alumno> ListaAlumnosGrupo = gestionAlumno.findByGrupo(grupoSelecionado);
+        for (int i = 0; i < ListaAlumnosGrupo.size(); i++) {
+            System.out.print(i);
+        }
+        DefaultListModel listModel = new DefaultListModel();
         
+        for (int i = 0; i < ListaAlumnosGrupo.size(); i++) {
+            listModel.add(i, ListaAlumnosGrupo.get(i));
+            System.out.print(i);
+        }
+        jList2.setModel(listModel);
+      
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
