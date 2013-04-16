@@ -4,6 +4,7 @@ public class VentanaSalida extends javax.swing.JFrame {
 
     public VentanaSalida() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     @SuppressWarnings("unchecked")

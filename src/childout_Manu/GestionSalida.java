@@ -14,7 +14,7 @@ public class GestionSalida {
     
     public Salida get(int idSalida) {
         Salida salida = null;
-        String sql = "SELECT * FROM salida WHERE id_salida = " + idSalida; 
+        String sql = "SELECT * FROM salida, alumno WHERE id_salida = " + idSalida; 
         try {
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -28,8 +28,10 @@ public class GestionSalida {
                 String observaciones = rs.getString("observacion");
                 Blob firma = rs.getBlob("firma");
                 Blob foto = rs.getBlob("foto");
+                String nombre = rs.getString("nombre");
+                System.out.println(rs.getString("nombre"));
                 if (idSalida == id) {
-                    salida = new Salida(id, fecha, hora, id_alumno, id_autorizado, motivo, observaciones, firma, foto);
+                    salida = new Salida(id, fecha, hora, id_alumno, id_autorizado, motivo, observaciones, firma, foto, nombre);
                 }
             }
         } catch (SQLException ex) {
@@ -58,7 +60,7 @@ public class GestionSalida {
                 Blob firma = rs.getBlob("firma");
                 Blob foto = rs.getBlob("foto");
                 String nombre = rs.getString("nombre");
-                salida = new Salida(idSalida, fecha, hora, id_autorizado, id_alumno, motivo, observaciones, firma, foto);
+                salida = new Salida(idSalida, fecha, hora, id_autorizado, id_alumno, motivo, observaciones, firma, foto, nombre);
                 listaAlumnos.add(salida);
             }
 
@@ -67,5 +69,15 @@ public class GestionSalida {
         }
         return listaAlumnos;
     }
-      
+    
+    public ArrayList<Integer[]> findByFecha() {
+        ArrayList<Integer[]> listaFechas = new ArrayList();
+        return listaFechas;
+    }
+ 
+    public ArrayList<Integer[]> findByGrupo() {
+        ArrayList<Integer[]> listaGrupos = new ArrayList();
+        return listaGrupos;
+    }
+    
 }

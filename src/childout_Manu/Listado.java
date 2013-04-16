@@ -6,19 +6,19 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Listado extends javax.swing.JPanel {
-    
+
     Salida salida = new Salida();
     GestionSalida gestion = new GestionSalida();
-    
+
     public Listado() {
         initComponents();
         inicio();
     }
-    
+
     private void inicio() {
         Conexion.conectar("localhost", "root", "");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,7 +108,7 @@ public class Listado extends javax.swing.JPanel {
 
     private void ordenarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenarPorActionPerformed
         String ordenarElegido = ordenarPor.getSelectedItem().toString();
-        if(ordenarElegido.equalsIgnoreCase("Fecha")) {
+        if (ordenarElegido.equalsIgnoreCase("Fecha")) {
             jLabel5.setVisible(true);
             jDateChooser1.setVisible(true);
         } else {
@@ -116,47 +116,27 @@ public class Listado extends javax.swing.JPanel {
             jDateChooser1.setVisible(false);
         }
         
-        ArrayList<Salida> listaAlumnos;
-        
-        switch(ordenarPor.getSelectedIndex()) {
+        switch (ordenarPor.getSelectedIndex()) {
             case 0:
                 Date fechaSeleccionada = jDateChooser1.getDate();
-                SimpleDateFormat  fechaCorta = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat fechaCorta = new SimpleDateFormat("yyyy-MM-dd");
                 String fecha = fechaCorta.format(fechaSeleccionada);
-                
-                if(fecha.equals(gestion.get(1).getFecha().toString())) {
-                    jTextAreaAlumno.setText(gestion.get(1).getFecha()+"");
-                    
-                }        
-                break;
-            case 1:
-                
-                break;
-            case 2:
-                
-                break;
-            case 3:
-                jTextAreaAlumno.setText(gestion.get(1).getIdAutorizado()+"");
-                
-                jTextAreaNumSalidas.setText("");
-        }
 
-        /*
-        switch(ordenarPor.getSelectedIndex()) {
-            case 0:
-                listaAlumnos = gestion.findByAlumno(2);
-                for (int i = 0; i < listaAlumnos.size(); i++) {
-                    jTextAreaAlumno.append(gestion.get(i).getFecha()+"\n");
+                if (fecha.equals(gestion.get(1).getFecha().toString())) {
+                    jTextAreaAlumno.setText(gestion.get(1).getFecha() + "");
                 }
                 break;
             case 1:
+
                 break;
             case 2:
+
                 break;
             case 3:
-        }*/
+                jTextAreaAlumno.setText(gestion.get(1).getIdAutorizado() + "");
+                jTextAreaNumSalidas.setText("");
+        }
     }//GEN-LAST:event_ordenarPorActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
