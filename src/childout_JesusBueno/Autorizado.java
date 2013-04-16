@@ -31,6 +31,7 @@ public class Autorizado {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+    public Autorizado(){};
 
     public Autorizado(int id, String nombre, String apellidos, String dni, String email, String telefono, Blob foto, Blob firma, String parentesco, Blob huella, int denegado) {
         this.id = id;
