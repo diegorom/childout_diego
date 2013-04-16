@@ -15,32 +15,10 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class ListaAlumnos extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ListaAlumnos
-     */
+  
     public ListaAlumnos() {
-        Conexion.conectar("localhost", "root", "");
+       
         initComponents();
-
-
-        if (!java.beans.Beans.isDesignTime()) {
-
-
-            GestionAlumno ga = new GestionAlumno();
-
-            ArrayList<String> lista = ga.findGrupos();
-//        ArrayList<String> lista = new ArrayList();
-//        lista.add("1eso");
-//        lista.add("2eso");
-//        lista.add("3eso");
-            jComboBox1.removeAllItems();
-
-
-            for (int i = 0; i < lista.size(); i++) {
-                jComboBox1.addItem(lista.get(i));
-            }
-
-        }
     }
 
     /**
