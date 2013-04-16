@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -21,11 +24,23 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
     Conexion conexion = new Conexion();
     Relacion relacion = new Relacion(1, 1, 1);
     GestionRelacion gestionRelacion = new GestionRelacion();
-    Alumno alumno = new Alumno(1, "Alberto", "1ESO-A");
+    Alumno alumno;
     GestionAlumno gestionAlumno = new GestionAlumno();
-    //String ListaAlumnosGrupo;
-    //DefaultListModel listModel;
-    //ArrayList<Alumno> ListaGruposSeleccionada;
+    ArrayList<Alumno> ListaAlumnosGrupo;
+    Alumno alumnoSeleccionado;
+    
+    
+    private void lista(){
+        String grupoSelecionado = jComboBox1.getSelectedItem().toString();
+        ListaAlumnosGrupo = gestionAlumno.findByGrupo(grupoSelecionado);
+        DefaultListModel listModel = new DefaultListModel();
+
+        for (int i = 0; i < ListaAlumnosGrupo.size(); i++) {
+            listModel.add(i, ListaAlumnosGrupo.get(i).nombre);
+            System.out.println("Recorre la lista: " + i);
+        }
+        jList2.setModel(listModel);
+    }
     public ListaAlumnadoGrupo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -36,6 +51,10 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
         gestionAlumno.findGrupos().toArray(arrayParaJComboBox);
         ComboBoxModel c = new DefaultComboBoxModel(arrayParaJComboBox);
         jComboBox1.setModel(c);
+        
+        
+        DefaultListModel model = new DefaultListModel();
+        jList2.setModel(model);
         
 
 
@@ -53,6 +72,7 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
         jSpinner1 = new javax.swing.JSpinner();
+        jOptionPane1 = new javax.swing.JOptionPane();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -87,8 +107,18 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
         jScrollPane2.setViewportView(jList2);
 
         jButton1.setText("Añadir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Suprimir");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -103,18 +133,18 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,43 +155,59 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addComponent(jButton3)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        System.out.print("HA ENTRADO");
-        String grupoSelecionado = jComboBox1.getSelectedItem().toString();
-        System.out.print(""+grupoSelecionado);
-        ArrayList<Alumno> ListaAlumnosGrupo = gestionAlumno.findByGrupo(grupoSelecionado);
-        for (int i = 0; i < ListaAlumnosGrupo.size(); i++) {
-            System.out.print(i);
-        }
-        DefaultListModel listModel = new DefaultListModel();
-        
-        for (int i = 0; i < ListaAlumnosGrupo.size(); i++) {
-            listModel.add(i, ListaAlumnosGrupo.get(i));
-            System.out.print(i);
-        }
-        jList2.setModel(listModel);
-      
+        this.lista();
 
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+
+        jOptionPane1.setVisible(true);
+
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el alumno seleccionado?", "Atencion", JOptionPane.OK_CANCEL_OPTION);
+        if (respuesta == JOptionPane.OK_OPTION) {
+            int numero = jList2.getSelectedIndex();
+            for (int i = 0; i < ListaAlumnosGrupo.size(); i++) {
+                if (numero == i) {
+                    System.out.println(numero + " , " + i);
+                    alumnoSeleccionado = ListaAlumnosGrupo.get(i);
+                }
+                System.out.println("Recorre la lista: " + i);
+            }
+            gestionAlumno.delete(alumnoSeleccionado);
+        }
+        if (respuesta == JOptionPane.CANCEL_OPTION) {
+            System.exit(0);
+        }
+        this.lista();
     }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JDialog Ventana_Detalles_Alumno = new JDialog();
+        Ventana_Detalles_Alumno.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        JDialog Ventana_Detalles_Alumno = new JDialog();
+        Ventana_Detalles_Alumno.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,16 +223,22 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlumnadoGrupo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -212,6 +264,7 @@ public class ListaAlumnadoGrupo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JList jList2;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;

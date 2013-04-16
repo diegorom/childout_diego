@@ -62,7 +62,7 @@ public class GestionAlumno {
         try {
             
             Statement stmt = Conexion.conexion.createStatement();
-            String sql = "Delete * from alumno where id_alumno ="+ alumno.getId_alumno();
+            String sql = "Delete from alumno where id_alumno ="+ alumno.getId_alumno();
             stmt.executeUpdate(sql);
             
         } catch (SQLException ex) {
@@ -87,49 +87,18 @@ public class GestionAlumno {
         }
         return true;
     }
-    /*
-    public ArrayList<Alumno> findByGrupo(String grupo){
-       ArrayList<Alumno> resultadoAlumno = new ArrayList();    
-       String sql = "SELECT *"
-                        + "FROM alumno "
-                            + "where(grupo like %"+grupo+"%)";
-        
-        try {
-                
-                rsLista = stmt.executeQuery(sql);
-                  while (rsLista.next()) 
-                   {
-                        int id_alumno = rsLista.getInt("id_alumno");
-                        String nombre = rsLista.getString("nombre");
-                        grupo = rsLista.getString("grupo");
-                        
-                        Alumno alumno = new Alumno (id_alumno,nombre,grupo);
-                        resultadoAlumno.add(alumno);
-                    }
-   
-
-        }catch (Exception e) {
-            System.out.print("Error");
-            System.out.print(sql);
-            e.printStackTrace();
-        }
-
-       return resultadoAlumno;
-   }
-   */
-
+    
     
     public ArrayList<Alumno> findByGrupo(String grupo) {
         ArrayList<Alumno> resultadoAlumno = new ArrayList();
         try {
             Statement stmt = Conexion.conexion.createStatement();
-            String sql = "SELECT * FROM alumno WHERE (nombre like '%"+grupo+"%')";
+            String sql = "SELECT * FROM alumno WHERE (grupo like '%"+grupo+"%')";
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                     int id_alumno = rs.getInt("id_alumno");
                     String nombre = rs.getString("nombre");
                     grupo = rs.getString("grupo");
-                    System.out.print(id_alumno+", "+nombre+", "+grupo);
                 Alumno alumno = new Alumno (id_alumno,nombre,grupo);
                 resultadoAlumno.add(alumno);
             }
@@ -138,5 +107,58 @@ public class GestionAlumno {
             ex.printStackTrace();
         }
         return resultadoAlumno;
+    }
+    public int insert(Alumno alumno) {
+        int autoincrementoID = -1;
+         try {
+            stmt = Conexion.conexion.createStatement();
+        } catch (SQLException ex) {
+            System.out.print("Error en el statement");
+            
+        }
+        
+        
+        String nombre = alumno.nombre;
+        String grupo = alumno.grupo;
+        
+        
+        String sql = "INSERT INTO alumno (nombre,grupo) VALUES "
+                + "('"+nombre+"','"+grupo+"')";
+        
+        try {
+                 stmt.executeUpdate(sql);
+
+        }catch (Exception e) {
+            System.out.print("Error");
+            System.out.print(sql);
+            e.printStackTrace();
+        }
+        
+        
+        
+             sql = "SELECT DISTINCT LAST_INSERT_ID() FROM alumno ";
+        
+        try {
+                 rsLista=stmt.executeQuery(sql);
+                 if (rsLista.next()) 
+                 {
+               // al llamar el método getGeneratedKeys(); devuelve una tabla con una sola columna, solo vamos a usar la columna con índice 1 de tipo int
+               autoincrementoID = rsLista.getInt(1);
+               } else 
+                 {
+                   System.out.print("Error al Sacar el Id del Alumno");
+                 } 
+                 
+                 
+        }catch (Exception e) {
+            System.out.print("Error");
+            System.out.print(sql);
+            e.printStackTrace();
+        }
+        
+        
+        
+        return autoincrementoID;
+ 
     }
 }

@@ -10,9 +10,11 @@ import java.util.ArrayList;
 
 public class GestionSalida {
     
+    public ArrayList<Salida> listaAlumnos;
+    
     public Salida get(int idSalida) {
         Salida salida = null;
-        String sql = "SELECT * FROM salida JOIN alumno WHERE id_salida = " + idSalida; 
+        String sql = "SELECT * FROM salida WHERE id_salida = " + idSalida; 
         try {
             Statement stmt = Conexion.conexion.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -26,9 +28,8 @@ public class GestionSalida {
                 String observaciones = rs.getString("observacion");
                 Blob firma = rs.getBlob("firma");
                 Blob foto = rs.getBlob("foto");
-                String nombre = rs.getString("nombre");
                 if (idSalida == id) {
-                    salida = new Salida(id, fecha, hora, id_alumno, id_autorizado, motivo, observaciones, firma, foto, nombre);
+                    salida = new Salida(id, fecha, hora, id_alumno, id_autorizado, motivo, observaciones, firma, foto);
                 }
             }
         } catch (SQLException ex) {
@@ -40,7 +41,7 @@ public class GestionSalida {
 
     public ArrayList<Salida> findByAlumno(int id) {
         Salida salida = null;
-        ArrayList<Salida> listaAlumnos = new ArrayList();
+        listaAlumnos = new ArrayList();
         String sql = "SELECT * FROM salida, alumno WHERE id_alumno = " + id;
         try {
             Statement stmt = Conexion.conexion.createStatement();
@@ -57,8 +58,7 @@ public class GestionSalida {
                 Blob firma = rs.getBlob("firma");
                 Blob foto = rs.getBlob("foto");
                 String nombre = rs.getString("nombre");
-                System.out.println(nombre);
-                salida = new Salida(idSalida, fecha, hora, id_autorizado, id_alumno, motivo, observaciones, firma, foto, nombre);
+                salida = new Salida(idSalida, fecha, hora, id_autorizado, id_alumno, motivo, observaciones, firma, foto);
                 listaAlumnos.add(salida);
             }
 
