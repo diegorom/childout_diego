@@ -294,7 +294,8 @@ public class PersonaAutorizada extends javax.swing.JPanel {
             listModel.add(i, nombreApellidos);
         }
         jList1.setModel(listModel);
-        al = listaAlumnosSeleccionada.get(jList1.getSelectedIndex());
+        int index = jList1.getSelectedIndex();
+        al = listaAlumnosSeleccionada.get(index);
         System.out.println(al.getId_alumno());
         
     }//GEN-LAST:event_jComboBox1ActionPerformed
