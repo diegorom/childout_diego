@@ -21,7 +21,7 @@ public class ListaAlumnadoGrupos extends javax.swing.JPanel {
      * Creates new form ListaAlumnadoGrupos
      */
     Conexion conexion = new Conexion();
-    Relacion relacion = new Relacion(1, 1, 1);
+    Relacion relacion;
     GestionRelacion gestionRelacion = new GestionRelacion();
     Alumno alumno;
     GestionAlumno gestionAlumno = new GestionAlumno();
@@ -163,12 +163,30 @@ public class ListaAlumnadoGrupos extends javax.swing.JPanel {
         // TODO add your handling code here:
         JDialog Ventana_Detalles_Alumno = new JDialog();
         Ventana_Detalles_Alumno.setVisible(true);
+        if(!jList2.isSelectionEmpty()){
+            int numero = jList2.getSelectedIndex();
+            for (int i = 0; i < ListaAlumnosGrupo.size(); i++) {
+                if (numero == i) {
+                    System.out.println(numero + " , " + i);
+                    alumnoSeleccionado = ListaAlumnosGrupo.get(i);
+                    Ventana_Detalles_Alumno.setAlumno(alumnoSeleccionado);
+                }
+            } 
+        }
+        
+        gestionAlumno.update(Ventana_Detalles_Alumno.getAlumno());
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         JDialog Ventana_Detalles_Alumno = new JDialog();
         Ventana_Detalles_Alumno.setVisible(true);
+        
+        gestionAlumno.insert(Ventana_Detalles_Alumno.getAlumno());
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
